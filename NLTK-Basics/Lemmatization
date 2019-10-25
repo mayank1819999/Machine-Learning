@@ -1,0 +1,10 @@
+import nltk
+from nltk.stem import WordNetLemmatizer
+from nltk.tokenize import word_tokenizer
+l = WordNetLemmatizer()
+text="Natural language processing (NLP) is a subfield of linguistics, computer science, information engineering, and artificial intelligence concerned with the interactions between computers and human (natural) languages, in particular how to program computers to process and analyze large amounts of natural language data."
+leematizlist=[]
+wordlist=word_tokenizer(text)
+for w in wordlist:
+  leematizlist.append(l.lemmatize(w))
+print(leematizlist)
