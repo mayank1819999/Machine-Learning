@@ -1,0 +1,15 @@
+
+corpus = [
+        'Indian cricket team will wins World Cup, says Capt. Virat Kohli. World cup will be held at Sri Lanka.',
+        'We will win next Lok Sabha Elections, says confident Indian PM',
+        'The nobel laurate won the hearts of the people',
+        'The movie Raazi is an exciting Indian Spy thriller based upon a real story'
+]
+
+from sklearn.feature_extraction.text import CountVectorizer
+
+cv = CountVectorizer()
+
+vectorized_corpus = cv.fit_transform(corpus).toarray()
+print(vectorized_corpus)
+print(len(vectorized_corpus[0]))
