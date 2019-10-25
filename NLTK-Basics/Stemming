@@ -1,0 +1,38 @@
+import nltk
+
+#Stemming
+#Process that transforms particular words(verbs,plurals)into their radical form
+#Preserve the semantics of the sentence without increasing the number of unique tokens
+#jumps, jumping, jumped, jump ==> jump
+
+text= """Foxes love to make jumps.The quick brown fox was seen jumping over the 
+        lovely dog from a 6ft feet high wall"""
+        
+
+from nltk.tokenize import RegexpTokenizer
+tokenizer = RegexpTokenizer("[a-zA-Z@]+")
+words_list = tokenizer.tokenize(text.lower())
+print(words_list)
+
+#Stemming
+#1) Snowball Stemmer (Multilingual)
+#2) Porter Stemmer
+#3) LancasterStemmer
+
+
+from nltk.stem.snowball import PorterStemmer,SnowballStemmer
+from nltk.stem.lancaster import LancasterStemmer
+ps = PorterStemmer()
+ss= SnowballStemmer('english')
+ls=LancasterStemmer()
+psw=[]
+lsw=[]
+ssw=[]
+for i in words_list:
+  psw.append(ps.stem(i))
+  lsw.append(ls.stem(i))
+  ssw.append(ss.stem(i))
+print(psw)
+print(lsw)
+print(ssw)
+  
