@@ -1,0 +1,38 @@
+import nltk
+text = "Send all the 50 documents related to clauses 1,2,3 at abc@xyz.com"
+
+#sent_tokenize breaks a paragraph into lists of sentences
+#word_tokenize breaks a sentence into list of words
+
+from nltk.tokenize import sent_tokenize,word_tokenize
+sents = sent_tokenize(text)
+print(sents)
+word_list = word_tokenize(sents[0].lower())
+print(word_list)
+
+#removing stopwords
+#stop words are words which are filtered out before processing of natural language data
+
+
+from nltk.corpus import stopwords
+sw  = set(stopwords.words('english'))
+
+#let us define a funtion that removes the stopwords from given list of words
+
+def filter_words(word_list):
+    useful_words = []
+    for w in word_list:
+      if w not in sw:
+        useful_words.append(w)    
+    return useful_words
+    
+useful_words= filter_words(word_list)
+print(useful_words)
+
+##Tokenization using Regular Expression
+#Problem with Word Tokenizer - Can't handle complex tokenizations ! So we use a Regexp Tokenizer Class in NLTK
+
+from nltk.tokenize import RegexpTokenizer
+tokenizer = RegexpTokenizer("[a-zA-Z@]+")
+text = "Send all the 50 documents related to clauses 1,2,3 at abc@xyz.com"
+print(tokenizer.tokenize(text))
