@@ -1,0 +1,34 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+dfx = pd.read_csv('Datasets/linearX.csv')
+dfy = pd.read_csv('Datasets/linearY.csv')
+
+x = dfx.values
+y = dfy.values
+x = x.reshape((-1,1))
+y = y.reshape((-1,1))
+
+X = (x-x.mean())/x.std()
+Y = y
+
+
+plt.scatter(X,Y)
+plt.show()
+
+#import linear regression class from sklearn
+from sklearn.linear_model import LinearRegression
+
+#create object of linear regression
+model = LinearRegression()
+
+#train model
+model.fit(X,Y)
+
+output = model.predict(X)
+model.score(X,Y)
+plt.scatter(X,Y,label='data')
+plt.scatter(X,output,color='orange',label='prediction')
+plt.legend()
+plt.show()
