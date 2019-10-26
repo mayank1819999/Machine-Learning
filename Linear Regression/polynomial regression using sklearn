@@ -1,0 +1,33 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+dfx = pd.read_csv('Datasets/weightedX.csv')
+dfy = pd.read_csv('Datasets/weightedY.csv')
+
+x = dfx.values
+y = dfy.values
+
+x = x.reshape((-1,))
+y = y.reshape((-1,))
+
+X = (x-x.mean())/x.std()
+Y = y
+
+x1 = X
+x2 = X**2
+#combine x1,x2 into one numpy array
+X = np.stack((x1,x2),axis=1)
+print(X.shape)
+print(y.shape)
+
+from sklearn.linear_model import LinearRegression
+regr = linear_model.LinearRegression()
+regr.fit(X,Y)
+b = regr.intercept_
+
+ytest = regr.predict(X)
+
+plt.scatter(X[:,0],Y,label='Original Data')
+plt.scaytest = regr.predict(X)tter(X[:,0],ytest,label='Prediction')
+plt.show()
