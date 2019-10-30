@@ -79,5 +79,8 @@ def plotClusters(clusters):
         #Plot the cluster center
         uk = clusters[kx]['center']
         plt.scatter(uk[0],uk[1],color="black",marker="*")
-   
+# Repeat this  few times or put it inside a loop
+assignPointToClusters(clusters)
+plotClusters(clusters)
+updateClusters(clusters)
     
