@@ -1,0 +1,20 @@
+## Problem with K-Means
+- Can fail sometimes on complex datasets
+# DBSCAN
+- **Density Based Spatial Clustering of Applications with Noise**
+- Based upon on the idea, that a cluster is a high density area surrounded by low density region
+- Starts by exploring a small area, if density is "good enough" it considered as part of cluster, and explores neigbours and so on, so it groups regions based upon density!
+
+
+
+import matplotlib.pyplot as plt
+from sklearn.datasets import make_circles,make_moons
+X,Y = make_moons(n_samples=200,noise=0.10)
+plt.scatter(X[:,0],X[:,1],c=Y)
+plt.show()
+from sklearn.cluster import DBSCAN
+dbs = DBSCAN(eps=0.21,min_samples=5)
+dbs.fit(X)
+Ypred = dbs.fit_predict(X)
+plt.scatter(X[:,0],X[:,1],c=Ypred)
+plt.show()
