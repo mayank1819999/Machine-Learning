@@ -37,58 +37,47 @@ def distance(v1,v2):
 #Now compute distance of each point from every class and assign that point to nearest class
 #we can  repeat this function until convergence
 
-for ix in range(X.shape[0]):
-    dist = []
-    curr_x = X[ix]
+
+# Assign every data point to one of the clusters
+def assignPointToClusters(clusters): #E-Step
+    for ix in range(X.shape[0]):
+        dist = []
+        curr_x = X[ix]
+
+        for kx in range(k):
+            d = distance(curr_x,clusters[kx]['center'])
+            dist.append(d)
+
+        current_cluster = np.argmin(dist)    
+        clusters[current_cluster]['points'].append(curr_x)
+        
+def updateClusters(clusters): # M-Step -> We update every cluster center according to the mean of the points in it
+    for kx in range(k):
+        pts = np.array(clusters[kx]['points'])
+        
+        if pts.shape[0]>0: #If a cluster has some-nonzero points
+            new_u = pts.mean(axis=0)
+            clusters[kx]['center'] = new_u
+            clusters[kx]['points'] = [] #Clear the list 
+                    
+    
+
+def plotClusters(clusters):
     
     for kx in range(k):
-        d = distance(curr_x, clusters[kx]['centre'])
-        dist.append(d)
+        #print(len(clusters[kx]['points']))
+        
+        pts = np.array(clusters[kx]['points'])
+        #print(pts.shape)
+        
+        #Plot the points
+        try:
+            plt.scatter(pts[:,0],pts[:,1],color=clusters[kx]['color'])
+        except:
+            pass
+        
+        #Plot the cluster center
+        uk = clusters[kx]['center']
+        plt.scatter(uk[0],uk[1],color="black",marker="*")
+   
     
-    current_cluster = np.argmin(dist)    
-    clusters[current_cluster]['points'].append(curr_x)
-
-
-
-for kx in range(k):
-    pts = np.array(clusters[kx]['points'])    
-    clusters[kx]['coords'] = pts
-    plt.figure(0)
-
-plt.grid("on")
-
-for kx in range(k):
-    pts = clusters[kx]['coords']
-    
-    try:
-        plt.scatter(pts[:,0],pts[:,1], color = clusters[kx]['color'])
-    except:
-        pass
-    
-    center = clusters[kx]['centre']
-    plt.scatter(center[0],center[1], color='black',s=100,marker="*")
-
-
-#shift each centre to average of its cluster
-for kx in range(k):
-    if clusters[kx]['coords'].shape[0] > 0:
-        new_center = clusters[kx]['coords'].mean(axis=0)
-    else:
-        new_center = clusters[kx]['centre']
-    
-    clusters[kx]['centre'] = new_center
-    clusters[kx]['points'] = []
- 
-#plotting centres and points
-plt.figure(1)
-plt.grid("on")
-for kx in range(k):
-    pts = clusters[kx]['coords']
-    
-    try:
-        plt.scatter(pts[:,0],pts[:,1], color = clusters[kx]['color'])
-    except:
-        pass
-    
-    center = clusters[kx]['centre']
-    plt.scatter(center[0],center[1], color='black',s=100,marker="*")
