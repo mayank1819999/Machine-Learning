@@ -1,0 +1,29 @@
+### K-Means++
+
+- K-Means is quite sensitive to initalization, if the init is not good algorithm is not able to make desired number
+of clusters.
+- To overcome this problem, we use technique called K-Means++ (described in paper [Robust Seed Selection for K-Means type of Algorithms](https://arxiv.org/abs/1202.1585))
+    which chooses initial centers so that they are statiscallly close to final ones.
+
+- The method is default choice for sklearn
+
+
+import numpy as np
+from matplotlib import pyplot as plt
+from sklearn.datasets import make_blobs
+X,y  = make_blobs(n_samples=500,n_features=2,centers=5,random_state=3)
+from sklearn.cluster import KMeanss
+
+kmeans  = KMeans(n_clusters=5)
+
+
+kmeans.fit(X,y)
+centers = kmeans.cluster_centers_
+plt.scatter(X[:,0],X[:,1])
+plt.scatter(centers[:,0],centers[:,1],marker='*',color='orange')
+plt.show()
+pred = kmeans.labels_
+plt.scatter(X[:,0],X[:,1],c=pred)
+plt.scatter(centers[:,0],centers[:,1],marker='*',color='black')
+plt.title("Prediction")
+plt.show()
