@@ -14,7 +14,7 @@ plt.scatter(X[:,0],X[:,1],c=Y)
 plt.show()
 from sklearn.cluster import DBSCAN
 dbs = DBSCAN(eps=0.21,min_samples=5)
-dbs.fit(X)
+dbs.fit(X,Y)
 Ypred = dbs.fit_predict(X)
 plt.scatter(X[:,0],X[:,1],c=Ypred)
 plt.show()
