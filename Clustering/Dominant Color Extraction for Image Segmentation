@@ -15,6 +15,8 @@ plt.show()
 from sklearn.cluster import KMeans
 dominant_colors = 4
 km = KMeans(n_clusters=dominant_colors)
+all_pixels  = im.reshape((-1,3))
+print(all_pixels.shape)
 km.fit(all_pixels)
 
 centers = km.cluster_centers_
