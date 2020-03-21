@@ -1,2 +1,5 @@
-code and predictions csv 
-polynomial regression is used to make predictions
+code and predictions csv
+
+Irrelevaent features are removed.
+Label Encoding is done for few of the features.
+polynomial regression model is used to make predictions.
